@@ -6,19 +6,35 @@
 
   <title>Fretboard Trainer</title>
   <meta name="description" content="Guided fretboard training">
-  <meta name="author" content="Neil BUrnett">
+  <meta name="author" content="Neil Burnett">
 
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 
 </head>
   <h1>Fretboard Trainer</h1>
-<audio id="audio2" 
-       preload="auto" 
-       src="4th string.m4a#t=00:03:26" 
-       oncanplaythrough="this.play();">
-       </audio>
+<audio id="sample" 
+       src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+       controls preload></audio>
+
+<a href="javascript:playSegment(0.0, 0.5);">Play1</a>
+<a href="javascript:playSegment(0.5);">Play2</a>
 
 <body>
-  <script src="js/scripts.js"></script>
+  <script src="js/scripts.js">var audio = document.getElementById('sample');
+var segmentEnd;
+
+audio.addEventListener('timeupdate', function (){
+    if (segmentEnd && audio.currentTime >= segmentEnd) {
+        audio.pause();
+    }   
+    console.log(audio.currentTime);
+}, false);
+
+function playSegment(startTime, endTime){
+    segmentEnd = endTime;
+    audio.currentTime = startTime;
+    audio.play();
+}
+  </script>
 </body>
 </html>
